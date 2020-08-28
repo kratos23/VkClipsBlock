@@ -3,4 +3,9 @@
     <string name="accessibility_service_label">VkClipsBan</string>
     <string name="accessibility_service_description">VkClipsBan</string>
     <string name="go_to_settings">Перейти в настройки</string>
+    <string name="enable_service">Предоставить доступ</string>
+    <string name="app_needs_service">Для работы приложению необходим доступ к Accessibility-сервису.</string>
+    <string name="enable_service_hint">Найдите VkClipsBan в списке сервисов и включите его.</string>
+    <string name="block_off">Блокировка клипов отключена</string>
+    <string name="block_on">Блокировка клипов включена</string>
 </resources>
