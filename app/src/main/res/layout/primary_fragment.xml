@@ -15,11 +15,35 @@
         android:layout_marginTop="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@id/enabledImage"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="@string/block_on"
         tools:textColor="@android:color/holo_green_dark" />
+
+    <ImageView
+        android:id="@+id/enabledImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/ic_enabled"
+        app:layout_constraintBottom_toTopOf="@id/toggle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stateLabel"
+        app:tint="@android:color/holo_green_dark" />
+
+    <ImageView
+        android:id="@+id/disabledImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_disabled"
+        app:layout_constraintBottom_toTopOf="@id/toggle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stateLabel" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/toggle"
@@ -27,8 +51,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:checked="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/stateLabel" />
+        app:layout_constraintTop_toBottomOf="@id/enabledImage" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

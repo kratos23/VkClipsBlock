@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.transition.TransitionSet
 import android.util.IntProperty
 import android.view.View
 import android.view.ViewGroup
@@ -39,10 +40,16 @@ class PrimaryFragment : Fragment(R.layout.primary_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        blockEnabledLD.observe(viewLifecycleOwner, {
-            TransitionManager.beginDelayedTransition(view as ViewGroup, AutoTransition())
-            toggle.isChecked = it
-            if (it) {
+        blockEnabledLD.observe(viewLifecycleOwner, { blockEnabled ->
+            TransitionManager.beginDelayedTransition(view as ViewGroup, AutoTransition().apply {
+                duration = SWITCH_ANIMATION_DURATION / 3L
+                ordering = TransitionSet.ORDERING_SEQUENTIAL
+            })
+            toggle.isChecked = blockEnabled
+            if (blockEnabled) {
+                disabledImage.visibility = View.INVISIBLE
+                enabledImage.visibility = View.VISIBLE
+
                 stateLabel.setText(R.string.block_on)
                 colorAnimator?.pause()
                 colorAnimator = ObjectAnimator.ofArgb(
@@ -53,8 +60,12 @@ class PrimaryFragment : Fragment(R.layout.primary_fragment) {
                     stateLabel.currentTextColor,
                     resources.getColor(android.R.color.holo_green_dark, null)
                 )
+                colorAnimator?.duration = SWITCH_ANIMATION_DURATION
                 colorAnimator?.start()
             } else {
+                disabledImage.visibility = View.VISIBLE
+                enabledImage.visibility = View.INVISIBLE
+
                 stateLabel.setText(R.string.block_off)
                 colorAnimator?.pause()
                 colorAnimator = ObjectAnimator.ofArgb(
@@ -65,6 +76,7 @@ class PrimaryFragment : Fragment(R.layout.primary_fragment) {
                     stateLabel.currentTextColor,
                     resources.getColor(android.R.color.holo_red_dark, null)
                 )
+                colorAnimator?.duration = SWITCH_ANIMATION_DURATION
                 colorAnimator?.start()
             }
         })
@@ -74,5 +86,6 @@ class PrimaryFragment : Fragment(R.layout.primary_fragment) {
     companion object {
         private const val PREFS_NAME = "settings"
         private const val BLOCK_ENABLED_KEY = "block_enabled"
+        private const val SWITCH_ANIMATION_DURATION = 250L
     }
 }
