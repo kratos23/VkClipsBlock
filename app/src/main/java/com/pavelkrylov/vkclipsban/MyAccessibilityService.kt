@@ -23,7 +23,9 @@ class MyAccessibilityService : AccessibilityService() {
     }
 
     private fun onVkClipsClicked() {
-        performGlobalAction(GLOBAL_ACTION_BACK)
+        if (SettingsManager.blockEnabled) {
+            performGlobalAction(GLOBAL_ACTION_BACK)
+        }
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
