@@ -1,7 +1,6 @@
 package com.pavelkrylov.vkclipsban
 
 import android.animation.ObjectAnimator
-import android.content.Context
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
@@ -18,20 +17,15 @@ class PrimaryFragment : Fragment(R.layout.primary_fragment) {
 
     private val blockEnabledLD = MutableLiveData<Boolean>()
 
-    private val prefs = App.INSTANCE.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-
-    private fun getBlockEnabled() = prefs.getBoolean(BLOCK_ENABLED_KEY, true)
-
-    private fun setBlockEnabled(enabled: Boolean) =
-        prefs.edit().putBoolean(BLOCK_ENABLED_KEY, enabled).apply()
+    private var blockEnabled: Boolean by SettingsManager::blockEnabled
 
     init {
-        blockEnabledLD.value = getBlockEnabled()
+        blockEnabledLD.value = blockEnabled
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        blockEnabledLD.observe(this, { setBlockEnabled(it) })
+        blockEnabledLD.observe(this, { blockEnabled = it })
     }
 
     var colorAnimator: ObjectAnimator? = null
@@ -84,8 +78,6 @@ class PrimaryFragment : Fragment(R.layout.primary_fragment) {
     }
 
     companion object {
-        private const val PREFS_NAME = "settings"
-        private const val BLOCK_ENABLED_KEY = "block_enabled"
         private const val SWITCH_ANIMATION_DURATION = 250L
     }
 }
