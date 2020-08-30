@@ -1,15 +1,25 @@
 package com.pavelkrylov.vkclipsban
 
 import android.accessibilityservice.AccessibilityService
+import android.content.Intent
 import android.view.accessibility.AccessibilityEvent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import java.util.concurrent.TimeUnit
+
 
 class MyAccessibilityService : AccessibilityService() {
 
     override fun onServiceConnected() {
         super.onServiceConnected()
         stateLd.value = STATE.ACTIVE
+
+        val timeElapsed = System.currentTimeMillis() - SettingsManager.serviceEnableRequestTime
+        if (timeElapsed <= RETURN_TO_ACTIVITY_MAX_DELAY) {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
     }
 
     private fun onVkClipsClicked() {
@@ -41,6 +51,7 @@ class MyAccessibilityService : AccessibilityService() {
 
     companion object {
         const val CLIPS_VIEW_ID = "com.vkontakte.android:id/tab_feedback"
+        val RETURN_TO_ACTIVITY_MAX_DELAY = TimeUnit.MINUTES.toMillis(2)
 
         private val stateLd = MutableLiveData<STATE>()
 

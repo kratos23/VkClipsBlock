@@ -20,6 +20,7 @@ class AccessibilityEnableFragment : Fragment(R.layout.enable_service_fragment) {
                         or Intent.FLAG_ACTIVITY_CLEAR_TOP
             )
             startActivity(goToSettings)
+            SettingsManager.serviceEnableRequestTime = System.currentTimeMillis()
             Toast.makeText(context, R.string.enable_service_hint, Toast.LENGTH_SHORT).show()
         }
     }
