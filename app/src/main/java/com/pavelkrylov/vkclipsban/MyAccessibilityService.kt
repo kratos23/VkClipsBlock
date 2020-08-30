@@ -19,7 +19,7 @@ class MyAccessibilityService : AccessibilityService() {
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         if (event.eventType == AccessibilityEvent.TYPE_VIEW_CLICKED) {
             val node = event.source
-            val resName = node.viewIdResourceName
+            val resName = node?.viewIdResourceName
             if (CLIPS_VIEW_ID == resName) {
                 onVkClipsClicked()
             }
