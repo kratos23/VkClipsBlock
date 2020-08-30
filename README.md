@@ -6,6 +6,7 @@
 VkClipsBlock uses [AccessibilityService](https://developer.android.com/reference/android/accessibilityservice/AccessibilityService) for listening when user goes to  Clips tab.
 
 ![1.png](https://i.postimg.cc/QCFZ73zR/1.png "Main application screen")
+---
 Main application screen
 
 ## Download
